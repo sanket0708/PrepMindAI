@@ -179,27 +179,37 @@ const LandingPage = () => {
           <footer className="w-full flex flex-col items-center gap-2 pt-6 pb-6 mt-10 mx-auto max-w-xl rounded-2xl bg-gradient-to-r from-cyan-50 via-blue-50 to-teal-50 shadow-lg border border-cyan-100">
             <span className="flex items-center gap-1 text-cyan-600 font-bold text-base">
               Made by Sanket
-              <svg xmlns='http://www.w3.org/2000/svg' className='inline w-4 h-4 text-pink-400 animate-pulse' fill='currentColor' viewBox='0 0 20 20'><path d='M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z'/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="inline w-4 h-4 text-pink-400 animate-pulse"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+              </svg>
             </span>
             <span className="text-xs text-gray-500 tracking-wide">
-              &copy; 2025 <span className="font-semibold text-cyan-600">PrepMind AI</span>. All rights reserved.
+              &copy; 2025{" "}
+              <span className="font-semibold text-cyan-600">PrepMind AI</span>.
+              All rights reserved.
             </span>
           </footer>
         </div>
       </div>
-      <Modal isOpen={openAuthModal} onClose={()=>{
-        setOpenAuthModal(false);
-        setCurrentPage("login");
-      }} hideHeader >
+      <Modal
+        isOpen={openAuthModal}
+        onClose={() => {
+          setOpenAuthModal(false);
+          setCurrentPage("login");
+        }}
+        hideHeader
+      >
         <div>
-          {currentPage === 'login' && (
-            <Login setCurrentPage={setCurrentPage} />
-          )}
-          {currentPage === 'signup' && (
+          {currentPage === "login" && <Login setCurrentPage={setCurrentPage} />}
+          {currentPage === "signup" && (
             <Signup setCurrentPage={setCurrentPage} />
           )}
         </div>
-
       </Modal>
     </>
   );
