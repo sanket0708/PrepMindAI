@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import HERO_IMG from "../assets/heroBanner.png";
 import { APP_FEATURES } from "../utils/data";
 import { useNavigate } from "react-router-dom";
@@ -8,15 +8,24 @@ import { FiMenu } from "react-icons/fi";
 import Modal from "../components/Modal";
 import Login from "./Auth/Login";
 import Signup from "./Auth/SignUp";
+import { UserContext } from "../context/userContext";
+import ProfileInfoCard from "../components/Cards/ProfileInfoCard";
 
 const LandingPage = () => {
+  const { user } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const [currentPage, setCurrentPage] = useState("login");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleCTA = () => {};
+  const handleCTA = () => {
+    if (!user) {
+      setOpenAuthModal(true);
+    } else {
+      navigate("/dashboard");
+    }
+  };
 
   return (
     <>
@@ -29,13 +38,20 @@ const LandingPage = () => {
               PrepMind AI
             </div>
             {/* Desktop button */}
-            <button
-              onClick={() => setOpenAuthModal(true)}
-              className="cursor-pointer bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white font-bold px-7 py-2.5 rounded-full shadow-lg hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200 hidden md:inline-block"
-            >
-              Login / Sign Up
-            </button>
+            {user ? (
+              <div className="hidden md:flex">
+                <ProfileInfoCard />
+              </div>
+            ) : (
+              <button
+                onClick={() => setOpenAuthModal(true)}
+                className="cursor-pointer bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white font-bold px-7 py-2.5 rounded-full shadow-lg hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200 hidden md:inline-block"
+              >
+                Login / Sign Up
+              </button>
+            )}
             {/* Hamburger for mobile */}
+
             <button
               className="md:hidden p-2 rounded focus:outline-none focus:ring-2 focus:ring-cyan-300"
               onClick={() => setMobileMenuOpen((open) => !open)}
@@ -46,15 +62,21 @@ const LandingPage = () => {
             {/* Mobile dropdown menu */}
             {mobileMenuOpen && (
               <div className="absolute right-0 top-14 bg-white rounded-xl shadow-lg border border-cyan-100 p-4 z-50 flex flex-col items-end animate-fade-in">
-                <button
-                  onClick={() => {
-                    setOpenAuthModal(true);
-                    setMobileMenuOpen(false);
-                  }}
-                  className="bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white font-bold px-6 py-2 rounded-full shadow hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
-                >
-                  Login / Sign Up
-                </button>
+                {user ? (
+                  <div className="flex md:hidden w-full">
+                    <ProfileInfoCard />
+                  </div>
+                ) : (
+                  <button
+                    onClick={() => {
+                      setOpenAuthModal(true);
+                      setMobileMenuOpen(false);
+                    }}
+                    className="bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white font-bold px-6 py-2 rounded-full shadow hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200"
+                  >
+                    Login / Sign Up
+                  </button>
+                )}
               </div>
             )}
           </header>
