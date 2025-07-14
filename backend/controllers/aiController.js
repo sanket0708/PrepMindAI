@@ -31,8 +31,8 @@ const generateInterviewQuestions = async (req, res) => {
 
     let rawText = response.text;
 
-    // Extract the first JSON object from the response, regardless of code blocks or extra text
-    const match = rawText.match(/\{[\s\S]*\}/);
+    // Extract the first JSON array from the response, regardless of code blocks or extra text
+    const match = rawText.match(/\[[\s\S]*\]/);
     const cleanedText = match ? match[0] : rawText;
 
     const data = JSON.parse(cleanedText);
