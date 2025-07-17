@@ -37,10 +37,9 @@ const RoleInfoHeader = ({
           </div>
         </div>
         <div className="w-[40vw] md:w-[30vw] h-[200px] flex items-center justify-center bg-white overflow-hidden absolute top-0 right-0 ">
-          <div className="w-16 h-16 bg-lime-400 blur-[65px] animate-blob1" />
-          <div className="w-16 h-16 bg-lime-400 blur-[65px] animate-blob1" />
-          <div className="w-16 h-16 bg-lime-400 blur-[65px] animate-blob1" />
-          <div className="w-16 h-16 bg-lime-400 blur-[65px] animate-blob1" />
+          <div className="w-20 h-20 bg-gradient-to-r from-cyan-700 via-blue-800 to-teal-700 blur-[65px] opacity-90 animate-blob1" />
+          <div className="w-16 h-16 bg-gradient-to-r from-cyan-700 via-blue-800 to-teal-700 blur-[65px] opacity-80 animate-blob1" />
+          <div className="w-12 h-12 bg-gradient-to-r from-cyan-700 via-blue-800 to-teal-700 blur-[65px] opacity-70 animate-blob1" />
         </div>
       </div>
     </div>

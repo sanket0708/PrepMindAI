@@ -158,10 +158,10 @@ const LandingPage = () => {
                         idx % 2 === 0 ? "bg-cyan-300" : "bg-blue-200"
                       }`}
                     ></div>
-                    <h3 className="text-2xl font-bold mb-3 text-cyan-700 drop-shadow-sm z-10">
+                    <h3 className="text-xl font-bold mb-3 text-cyan-700 drop-shadow-sm z-10">
                       {feature.title}
                     </h3>
-                    <p className="text-gray-700 text-base z-10">
+                    <p className="text-gray-700 text-sm z-10 md:text-base">
                       {feature.description}
                     </p>
                   </div>
@@ -189,7 +189,7 @@ const LandingPage = () => {
               ].map((company) => (
                 <span
                   key={company.name}
-                  className={`text-lg md:text-2xl font-extrabold px-6 py-2 rounded-full bg-gradient-to-r ${company.color} text-white shadow-md hover:scale-105 transition-all select-none`}
+                  className={`text-sm md:text-2xl font-extrabold px-6 py-2 rounded-full bg-gradient-to-r ${company.color} text-white shadow-md hover:scale-105 transition-all select-none`}
                 >
                   {company.name}
                 </span>
@@ -200,7 +200,7 @@ const LandingPage = () => {
         <div className="text-center text-gray-400 text-sm py-4">
           <footer className="w-full flex flex-col items-center gap-2 pt-6 pb-6 mt-10 mx-auto max-w-xl rounded-2xl bg-gradient-to-r from-cyan-50 via-blue-50 to-teal-50 shadow-lg border border-cyan-100">
             <span className="flex items-center gap-1 text-cyan-600 font-bold text-base">
-              Made by Sanket
+              Made by Sanket Mudholkar with
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="inline w-4 h-4 text-pink-400 animate-pulse"
