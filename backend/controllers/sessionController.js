@@ -32,7 +32,8 @@ exports.createSession = async (req, res) => {
 
     res.status(201).json({ success: true, session });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Something went wrong!" });
+    console.error(error); // This will print the real error in your backend console
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
