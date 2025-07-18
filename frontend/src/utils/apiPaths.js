@@ -1,6 +1,6 @@
 //all the api paths for the backend
 
-export const BASE_URL = "http://localhost:8000";
+export const BASE_URL = "https://prepmindai-backend.onrender.com";
 
 export const API_PATHS = {
   AUTH: {
