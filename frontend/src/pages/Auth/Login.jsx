@@ -5,6 +5,7 @@ import { validateEmail } from "../../utils/helper";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import { UserContext } from "../../context/userContext";
+import { toast } from "react-hot-toast";
 
 const Login = ({ setCurrentPage }) => {
   const [email, setEmail] = useState("");
@@ -43,6 +44,7 @@ const Login = ({ setCurrentPage }) => {
         localStorage.setItem("token", token);
         updateUser(response.data);
         navigate("/dashboard");
+        toast.success("Logged in successfully!");
       }
     } catch (error) {
       if (error.response && error.response.data.message) {

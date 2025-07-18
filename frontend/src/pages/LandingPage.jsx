@@ -124,7 +124,7 @@ const LandingPage = () => {
               onClick={handleCTA}
               className="bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 font-bold text-white px-6 py-2 text-base md:text-lg md:px-10 md:py-4 rounded-full cursor-pointer shadow-xl hover:bg-cyan-400 hover:text-black hover:scale-105 transition-all border-2 border-black focus:outline-none focus:ring-2 focus:ring-cyan-400 mt-4 animate-bounce-slow"
             >
-              Get Started
+              Ready to Prep ?
             </button>
           </div>
         </div>
