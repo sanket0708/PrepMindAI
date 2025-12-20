@@ -31,9 +31,20 @@ exports.addQuestionsToSession = async (req, res) => {
     session.questions.push(...createdQuestions.map((q) => q._id));
     await session.save();
 
+    // console.log(`Successfully added ${createdQuestions.length} questions to session ${sessionId}`);
     res.status(201).json(createdQuestions);
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong!" });
+    console.error("Error in addQuestionsToSession:", error);
+    console.error("Error details:", {
+      message: error.message,
+      stack: error.stack,
+      sessionId: req.body.sessionId,
+      questionsCount: req.body.questions?.length,
+    });
+    res.status(500).json({ 
+      message: "Failed to add questions to session",
+      error: error.message 
+    });
   }
 };
 

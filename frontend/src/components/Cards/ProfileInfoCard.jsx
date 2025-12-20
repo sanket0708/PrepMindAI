@@ -16,11 +16,19 @@ const ProfileInfoCard = () => {
   return (
     user && (
       <div className="flex items-center gap-3">
-        <img
-          src={user.profileImageUrl}
-          alt="Profile"
-          className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full object-cover border-2 border-blue-400"
-        />
+        {user.profileImageUrl ? (
+          <img
+            src={user.profileImageUrl}
+            alt="Profile"
+            className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full object-cover border-2 border-blue-400"
+          />
+        ) : (
+          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full border-2 border-blue-400 flex items-center justify-center">
+            <span className="text-gray-500 text-xs font-semibold">
+              {user.name?.charAt(0)?.toUpperCase() || "U"}
+            </span>
+          </div>
+        )}
         <div className="flex-1 min-w-0">
           <div className="text-sm sm:text-base text-gray-900 font-semibold truncate">
             {user.name || ""}

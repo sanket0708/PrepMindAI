@@ -25,7 +25,7 @@ const Drawer = ({ isOpen, onClose, title, children }) => {
           <LuX className="text-lg" />
         </button>
       </div>
-      <div className="text-sm mx-3 mb-6">{children}</div>
+      <div className="text-sm mx-3 mb-6 mt-2">{children}</div>
     </div>
   );
 };

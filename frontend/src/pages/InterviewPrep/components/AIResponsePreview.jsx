@@ -7,9 +7,72 @@ import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 const AIResponsePreview = ({ content }) => {
   if (!content) return null;
+
+  // Clean and format the content
+  const cleanContent = (text) => {
+    if (!text) return "";
+    
+    let cleaned = String(text);
+    
+    // First, protect code blocks from being modified
+    const codeBlockRegex = /```[\s\S]*?```/g;
+    const codeBlocks = [];
+    let codeBlockIndex = 0;
+    
+    cleaned = cleaned.replace(codeBlockRegex, (match) => {
+      codeBlocks.push(match);
+      return `__CODE_BLOCK_${codeBlockIndex++}__`;
+    });
+    
+    // Remove any JSON object patterns that might be showing as raw text
+    // Try to extract content from JSON if it exists
+    const jsonObjectMatch = cleaned.match(/\{\s*"title"\s*:\s*"[^"]*"\s*,\s*"explanation"\s*:\s*"([^"]*(?:\\.[^"]*)*)"\s*\}/);
+    if (jsonObjectMatch && jsonObjectMatch[1]) {
+      // Extract the explanation from JSON structure
+      cleaned = jsonObjectMatch[1].replace(/\\"/g, '"').replace(/\\n/g, '\n');
+    } else {
+      // Remove standalone JSON-like text patterns
+      cleaned = cleaned.replace(/\{\s*"title"\s*:[\s\S]*?"explanation"\s*:[\s\S]*?\}/g, "");
+      cleaned = cleaned.replace(/\{\s*"explanation"\s*:[\s\S]*?"title"\s*:[\s\S]*?\}/g, "");
+    }
+    
+    // Convert <br> and <br/> tags to line breaks
+    cleaned = cleaned.replace(/<br\s*\/?>/gi, "\n\n");
+    
+    // Handle escaped characters that might be showing as literal text
+    cleaned = cleaned.replace(/\\n/g, "\n");
+    cleaned = cleaned.replace(/\\t/g, "  "); // Convert tabs to spaces
+    cleaned = cleaned.replace(/\\r/g, "");
+    cleaned = cleaned.replace(/\\"/g, '"');
+    cleaned = cleaned.replace(/\\'/g, "'");
+    
+    // Remove any remaining JSON artifacts (like escaped braces)
+    cleaned = cleaned.replace(/\\\{/g, "");
+    cleaned = cleaned.replace(/\\\}/g, "");
+    
+    // Restore code blocks
+    codeBlocks.forEach((block, index) => {
+      cleaned = cleaned.replace(`__CODE_BLOCK_${index}__`, block);
+    });
+    
+    // Clean up multiple consecutive newlines (more than 2) but preserve code blocks
+    cleaned = cleaned.replace(/\n{3,}/g, "\n\n");
+    
+    // Remove any remaining JSON artifacts at the start/end
+    cleaned = cleaned.replace(/^[\s\n]*\{[\s\S]*?"explanation"\s*:\s*"([\s\S]*?)"[\s\S]*?\}[\s\n]*$/m, '$1');
+    
+    // Clean up any remaining escaped quotes and newlines
+    cleaned = cleaned.replace(/\\"/g, '"');
+    cleaned = cleaned.replace(/\\n/g, '\n');
+    
+    return cleaned.trim();
+  };
+
+  const formattedContent = cleanContent(content);
+
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="text-[14px] prose prose-slate dark:prose-invert max-w-none">
+    <div className="max-w-4xl mx-auto py-4">
+      <div className="text-[15px] prose prose-slate dark:prose-invert max-w-none leading-relaxed">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
@@ -35,7 +98,7 @@ const AIResponsePreview = ({ content }) => {
             },
 
             p({ children }) {
-              return <p className="mb-4 leading-5">{children}</p>;
+              return <p className="mb-5 leading-7 text-gray-700">{children}</p>;
             },
             strong({ children }) {
               return <strong>{children}</strong>;
@@ -45,41 +108,41 @@ const AIResponsePreview = ({ content }) => {
             },
             ul({ children }) {
               return (
-                <ul className="list-disc pl-6 space-y-2 my-4">{children}</ul>
+                <ul className="list-disc pl-6 space-y-3 my-5">{children}</ul>
               );
             },
             ol({ children }) {
               return (
-                <ol className="list-decimal pl-6 space-y-2 my-4">{children}</ol>
+                <ol className="list-decimal pl-6 space-y-3 my-5">{children}</ol>
               );
             },
             li({ children }) {
-              return <li className="mb-1">{children}</li>;
+              return <li className="mb-2 leading-6">{children}</li>;
             },
             blockquote({ children }) {
               return (
-                <blockquote className="border-l-4 border-gray-200 pl-4 italic my-4">
+                <blockquote className="border-l-4 border-gray-300 pl-5 italic my-5 text-gray-600">
                   {children}
                 </blockquote>
               );
             },
             h1({ children }) {
               return (
-                <h1 className="text-2xl font-bold mt-6 mb-4">{children}</h1>
+                <h1 className="text-2xl font-bold mt-8 mb-5">{children}</h1>
               );
             },
             h2({ children }) {
               return (
-                <h2 className="text-xl font-bold mt-6 mb-3">{children}</h2>
+                <h2 className="text-xl font-bold mt-7 mb-4">{children}</h2>
               );
             },
             h3({ children }) {
               return (
-                <h3 className="text-lg font-bold mt-5 mb-2">{children}</h3>
+                <h3 className="text-lg font-bold mt-6 mb-3">{children}</h3>
               );
             },
             h4({ children }) {
-              return <h4 className="text-base font-bold mb-2">{children}</h4>;
+              return <h4 className="text-base font-bold mt-5 mb-3">{children}</h4>;
             },
             a({ children, href }) {
               return (
@@ -126,13 +189,14 @@ const AIResponsePreview = ({ content }) => {
               return <hr className="my-6 border-gray-200" />;
             },
             img({ src, alt }) {
+              if (!src || src === "") return null;
               return (
-                <img src={src} alt={alt} className="my-4 max-w-full rounded " />
+                <img src={src} alt={alt || ""} className="my-4 max-w-full rounded " />
               );
             },
           }}
         >
-          {content}
+          {formattedContent}
         </ReactMarkdown>
       </div>
     </div>
@@ -149,7 +213,7 @@ function CodeBlock({ code, language }) {
   };
 
   return (
-    <div className="relative my-6 rounded-lg overflow-hidden bg-gray-50 border border-gray-200 ">
+    <div className="relative my-7 rounded-lg overflow-hidden bg-gray-50 border border-gray-200 ">
       <div className="flex items-center justify-between px-4 py-2 bg-gray-100 border-b border-gray-200">
         <div className="flex items-center space-x-2">
           <LuCode size={16} className="text-gray-500" />

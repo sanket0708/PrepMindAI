@@ -49,11 +49,17 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
         </div>
       ) : (
         <div className="w-24 h-24 rounded-full relative group">
-          <img 
-            src={preview} 
-            alt="profile pic" 
-            className="w-full h-full rounded-full object-cover border-2 border-cyan-200" 
-          />
+          {preview ? (
+            <img 
+              src={preview} 
+              alt="profile pic" 
+              className="w-full h-full rounded-full object-cover border-2 border-cyan-200" 
+            />
+          ) : (
+            <div className="w-full h-full rounded-full bg-gradient-to-r from-cyan-100 to-blue-100 border-2 border-cyan-200 flex items-center justify-center">
+              <LuUser className="text-4xl text-cyan-600" />
+            </div>
+          )}
           <button 
             type="button" 
             className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white shadow-lg hover:bg-red-600 transition-all" 
