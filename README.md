@@ -1,5 +1,7 @@
 # 🧠 PrepMindAI
 
+ -PrepMindAI is a full-stack AI-powered interview preparation web app built using the MERN stack. It helps users practice and understand technical questions with AI-generated answers and detailed explanations, making interview prep faster, smarter, and more efficient.
+
 # 🚀 Features
 
 - ✨ **AI-Generated Questions & Answers**  
