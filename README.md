@@ -31,7 +31,7 @@
 |               | Express.js       | Web framework for Node.js                 |
 |               | MongoDB          | NoSQL database                            |
 |               | Mongoose         | ODM for MongoDB in Node.js                |
-| **AI/ML**     | Gemini API       | Generates questions, answers, explanations |
+| **AI/ML**     | Groq API         | Generates questions, answers, explanations|
 | **Auth**      | JWT              | JSON Web Token for secure auth            |
 |               | Bcrypt.js        | Password hashing                          |
 
