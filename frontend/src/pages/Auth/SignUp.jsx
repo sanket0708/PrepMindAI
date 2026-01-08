@@ -7,6 +7,8 @@ import { UserContext } from "../../context/userContext";
 import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import uploadImage from "../../utils/uploadImage";
+import { toast } from "react-hot-toast";
+import SpinnerLoader from "../../components/Loader/SpinnerLoader";
 
 const Signup = ({ setCurrentPage }) => {
   const [profilePic, setProfilePic] = useState(null);
@@ -16,6 +18,7 @@ const Signup = ({ setCurrentPage }) => {
   const [password, setPassword] = useState("");
 
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
   const { updateUser } = useContext(UserContext);
   const navigate = useNavigate();
 
@@ -40,6 +43,12 @@ const Signup = ({ setCurrentPage }) => {
     }
 
     setError("");
+    setLoading(true);
+    
+    // Show loading toast
+    const toastId = toast.loading("Signing you up... Please wait", {
+      duration: 4000,
+    });
 
     //signup api call
     try {
@@ -60,14 +69,22 @@ const Signup = ({ setCurrentPage }) => {
       if (token) {
         localStorage.setItem("token", token);
         updateUser(response.data);
+        toast.success("Account created successfully! 🎉", { id: toastId });
         navigate("/dashboard");
       }
     } catch (error) {
+      let errorMessage = "Something went wrong! Please try again.";
+      
       if (error.response && error.response.data.message) {
+        errorMessage = error.response.data.message;
         setError(error.response.data.message);
       } else {
-        setError("Something went wrong! Please try again.");
+        setError(errorMessage);
       }
+      
+      toast.error(errorMessage, { id: toastId });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -114,9 +131,21 @@ const Signup = ({ setCurrentPage }) => {
 
           <button
             type="submit"
-            className="cursor-pointer w-full bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white rounded-full py-2.5 mt-2 font-bold shadow hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200 text-lg tracking-wide"
+            disabled={loading}
+            className={`cursor-pointer w-full bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white rounded-full py-2.5 mt-2 font-bold shadow transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200 text-lg tracking-wide flex items-center justify-center gap-2 ${
+              loading
+                ? "opacity-70 cursor-not-allowed"
+                : "hover:from-teal-400 hover:to-cyan-500 hover:scale-105"
+            }`}
           >
-            SIGN UP
+            {loading ? (
+              <>
+                <SpinnerLoader />
+                <span>Signing up...</span>
+              </>
+            ) : (
+              "SIGN UP"
+            )}
           </button>
         </form>
 
