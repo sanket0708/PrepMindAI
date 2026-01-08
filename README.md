@@ -1,10 +1,6 @@
 # 🧠 PrepMindAI
 
-PrepMindAI is a full-stack AI-powered interview preparation web app built using the MERN stack. It helps users practice and understand technical questions with AI-generated answers and detailed explanations, making interview prep faster, smarter, and more efficient.
-
-Live Link - https://prepmindai-frontend.onrender.com/
-
----
+ PrepMindAI is a full-stack AI-powered interview preparation web app built using the MERN stack. It helps users practice and understand technical questions with AI-generated answers and detailed explanations, making interview prep faster, smarter, and more efficient.
 
 # 🚀 Features
 
@@ -37,7 +33,7 @@ Live Link - https://prepmindai-frontend.onrender.com/
 |               | Express.js       | Web framework for Node.js                 |
 |               | MongoDB          | NoSQL database                            |
 |               | Mongoose         | ODM for MongoDB in Node.js                |
-| **AI/ML**     | Gemini API       | Generates questions, answers, explanations |
+| **AI/ML**     | Groq API         | Generates questions, answers, explanations|
 | **Auth**      | JWT              | JSON Web Token for secure auth            |
 |               | Bcrypt.js        | Password hashing                          |
 
