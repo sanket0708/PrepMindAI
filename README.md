@@ -5,7 +5,7 @@
 # 🚀 Features
 
 - ✨ **AI-Generated Questions & Answers**  
-  Instantly generate interview questions on key topics like DSA, DBMS, System Design, etc.
+  Instantly generate interview questions on key topics like DSA, DBMS, System Design, etc..
 
 - 📖 **Detailed Explanations**  
   Every answer comes with an in-depth explanation to strengthen understanding.
