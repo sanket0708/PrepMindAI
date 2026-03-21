@@ -17,7 +17,7 @@
   Choose specific areas to focus your practice sessions.
 
 - 🧩 **Simple & Responsive UI**  
-  Clean, intuitive design that works seamlessly across devices.
+  Clean, intuitive design that works seamlessly across different devices.
 
 ---
 
