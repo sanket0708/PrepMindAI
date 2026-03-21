@@ -1,15 +1,7 @@
 const multer = require("multer");
 
-//config storage
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads");
-  },
-  filename: (req, file, cb) => {
-    cb(null, `${Date.now()}-${file.originalname}`);
-  },
-});
+// Store files in memory so they can be forwarded to Cloudinary.
+const storage = multer.memoryStorage();
 
 //file filter
 
@@ -22,6 +14,6 @@ const fileFilter = (req, file, cb) => {
   }
 };
 
-const upload = multer({ storage, fileFilter });
+const upload = multer({ storage, fileFilter, limits: { fileSize: 5 * 1024 * 1024 } });
 
 module.exports = upload;
