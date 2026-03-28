@@ -50,8 +50,9 @@ const generateInterviewQuestions = async (req, res) => {
         },
       ],
       model: "llama-3.3-70b-versatile", // Current recommended model
-      temperature: 0.7,
-      max_tokens: 3000,
+      // Lower temp + higher cap: 10 long Q&As in JSON often exceeded 3000 and truncated mid-JSON → parse failures
+      temperature: 0.35,
+      max_tokens: 8192,
     });
     
     // console.log("Groq API response received");
