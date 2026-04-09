@@ -46,8 +46,8 @@ const Signup = ({ setCurrentPage }) => {
     setLoading(true);
     
     // Show loading toast
-    const toastId = toast.loading("Signing you up... Please wait", {
-      duration: 4000,
+    const toastId = toast.loading("Creating account and connecting to database... This may take a few seconds", {
+      duration: 10000,
     });
 
     //signup api call

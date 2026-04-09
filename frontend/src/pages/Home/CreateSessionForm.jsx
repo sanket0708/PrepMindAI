@@ -6,7 +6,7 @@ import axiosInstance from "../../utils/axiosInstance";
 import { API_PATHS } from "../../utils/apiPaths";
 import toast from "react-hot-toast";
 
-const CreateSessionForm = () => {
+const CreateSessionForm = ({ onSessionCreated, onClose }) => {
   const [formData, setFormData] = useState({
     role: "",
     experience: "",
@@ -61,6 +61,11 @@ const CreateSessionForm = () => {
         navigate(`/interview-prep/${response.data?.session?._id}`);
       }
       toast.success("Session created successfully!");
+      
+      // Call the callback to refresh dashboard
+      if (onSessionCreated) {
+        onSessionCreated();
+      }
     } catch (error) {
       if (error.response && error.response.data.message) {
         setError(error.response.data.message);

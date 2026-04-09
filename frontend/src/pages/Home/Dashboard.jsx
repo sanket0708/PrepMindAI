@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { LuPlus, LuSparkles } from "react-icons/lu";
 import { motion } from "framer-motion";
 import { CARD_BG } from "../../utils/data";
@@ -12,23 +12,90 @@ import moment from "moment";
 import Modal from "../../components/Modal";
 import CreateSessionForm from "./CreateSessionForm";
 import DeleteAlertContent from "../../components/DeleteAlertContent";
+import { UserContext } from "../../context/userContext";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
   const [openCreateModal, setOpenCreateModal] = useState(false);
   const [sessions, setSessions] = useState([]);
-
-  const [openDeleteAlert, setOpenDeleteAlert] = useState({
-    open: false,
-    data: null,
+  const [isLoading, setIsLoading] = useState(true);
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [userStats, setUserStats] = useState({
+    totalSessions: 0,
+    totalQuestions: 0,
+    studyStreak: 0,
+    lastActive: null,
+    topRole: ""
   });
+  const [openDeleteAlert, setOpenDeleteAlert] = useState({ open: false, data: null });
+
+  // Load cached data on mount
+  useEffect(() => {
+    const cachedSessions = localStorage.getItem('cachedSessions');
+    const cachedStats = localStorage.getItem('cachedUserStats');
+    
+    if (cachedSessions) {
+      try {
+        const parsedSessions = JSON.parse(cachedSessions);
+        setSessions(parsedSessions);
+        setIsInitialLoad(false);
+      } catch (error) {
+        console.error('Error parsing cached sessions:', error);
+      }
+    }
+    
+    if (cachedStats) {
+      try {
+        const parsedStats = JSON.parse(cachedStats);
+        setUserStats(parsedStats);
+      } catch (error) {
+        console.error('Error parsing cached stats:', error);
+      }
+    }
+  }, []);
 
   const fetchAllSessions = async () => {
+    setIsLoading(true);
     try {
       const response = await axiosInstance.get(API_PATHS.SESSION.GET_ALL);
-      setSessions(response.data);
+      const sessionsData = response.data;
+      setSessions(sessionsData);
+      setIsInitialLoad(false);
+      
+      // Cache the data for future loads
+      localStorage.setItem('cachedSessions', JSON.stringify(sessionsData));
+      
+      // Calculate and cache user stats
+      const totalSessions = sessionsData.length;
+      const totalQuestions = sessionsData.reduce((acc, session) => acc + (session.questions?.length || 0), 0);
+      
+      const lastActiveDate = sessionsData.length > 0 ? moment(sessionsData[0].updatedAt) : moment();
+      const today = moment();
+      const daysDiff = today.diff(lastActiveDate, 'days');
+      const studyStreak = daysDiff <= 1 ? 1 : 0;
+      
+      const roleCount = {};
+      sessionsData.forEach(session => {
+        roleCount[session.role] = (roleCount[session.role] || 0) + 1;
+      });
+      const topRole = Object.keys(roleCount).reduce((a, b) => roleCount[a] > roleCount[b] ? a : b, "");
+      
+      const stats = {
+        totalSessions,
+        totalQuestions,
+        studyStreak,
+        lastActive: sessionsData.length > 0 ? lastActiveDate.format('MMM DD') : null,
+        topRole
+      };
+      
+      setUserStats(stats);
+      localStorage.setItem('cachedUserStats', JSON.stringify(stats));
+      
     } catch (error) {
       console.error("Error fetching session data!", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,10 +107,21 @@ const Dashboard = () => {
         open: false,
         data: null,
       });
+      
+      // Clear cache and refetch
+      localStorage.removeItem('cachedSessions');
+      localStorage.removeItem('cachedUserStats');
       fetchAllSessions();
     } catch (error) {
       console.error("Error deleting session data:", error);
     }
+  };
+
+  // Clear cache when new session is created
+  const handleSessionCreated = () => {
+    localStorage.removeItem('cachedSessions');
+    localStorage.removeItem('cachedUserStats');
+    fetchAllSessions();
   };
 
   useEffect(() => {
@@ -71,7 +149,21 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {sessions.length === 0 ? (
+        {isLoading ? (
+          <div className="grid grid-cols-1 gap-5 pb-6 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {[...Array(6)].map((_, index) => (
+              <div
+                key={index}
+                className="animate-pulse rounded-2xl border border-slate-200 bg-white p-6"
+              >
+                <div className="h-6 bg-slate-200 rounded mb-4"></div>
+                <div className="h-4 bg-slate-200 rounded mb-2"></div>
+                <div className="h-4 bg-slate-200 rounded w-3/4 mb-4"></div>
+                <div className="h-3 bg-slate-200 rounded"></div>
+              </div>
+            ))}
+          </div>
+        ) : sessions.length === 0 ? (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
@@ -118,7 +210,7 @@ const Dashboard = () => {
             ))}
           </div>
         )}
-        {sessions.length > 0 && (
+        {!isInitialLoad && sessions.length > 0 && (
           <button
             type="button"
             className="fixed bottom-[max(1.5rem,env(safe-area-inset-bottom))] left-1/2 z-20 flex h-12 min-w-[10rem] -translate-x-1/2 cursor-pointer items-center justify-center gap-2 rounded-full bg-indigo-600 px-6 text-sm font-semibold text-white shadow-xl shadow-indigo-500/30 transition hover:bg-indigo-500 sm:left-auto sm:right-6 sm:translate-x-0 md:bottom-10 md:h-14 md:right-8 lg:right-12"
@@ -138,7 +230,10 @@ const Dashboard = () => {
         hideHeader
       >
         <div>
-          <CreateSessionForm />
+          <CreateSessionForm 
+            onSessionCreated={handleSessionCreated}
+            onClose={() => setOpenCreateModal(false)}
+          />
         </div>
       </Modal>
       <Modal

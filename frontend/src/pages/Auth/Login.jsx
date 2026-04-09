@@ -35,8 +35,8 @@ const Login = ({ setCurrentPage }) => {
     setLoading(true);
     
     // Show loading toast
-    const toastId = toast.loading("Logging you in... Please wait", {
-      duration: 4000,
+    const toastId = toast.loading("Connecting to database... This may take a few seconds on first login", {
+      duration: 10000,
     });
 
     //api call
