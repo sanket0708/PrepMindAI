@@ -14,62 +14,59 @@ const SummaryCard = ({
   onDelete,
 }) => {
   return (
-    <div
-      className="bg-white border border-gray-300/40 rounded-xl p-2 overflow-hidden cursor-pointer hover:shadow-xl shadow-gray-100 relative group"
+    <article
+      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm transition hover:-translate-y-0.5 hover:border-indigo-200/80 hover:shadow-lg hover:shadow-indigo-500/5"
       onClick={onSelect}
     >
       <div
-        className="rounded-lg p-4 cursor-pointer relative"
+        className="relative p-5"
         style={{ background: colors.bgcolor }}
       >
-        <div className="flex items-start">
-          <div className="flex-shrink-0 w-12 h-12 bg-white rounded-md flex items-center justify-center mr-4">
-            <span className="text-lg font-semibold text-black">
-              {getInitials(role)}
-            </span>
+        <div className="flex items-start gap-4">
+          <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/80 bg-white/95 text-sm font-bold text-slate-800 shadow-sm">
+            {getInitials(role)}
           </div>
-
-          <div className="flex-grow">
-            <div className="flex justify-between items-start">
-              <div>
-                <h2 className="text-[17px] font-medium">{role}</h2>
-                <p className="text-xs text-medium text-gray-900">
-                  {topicsToFocus}
-                </p>
-              </div>
-            </div>
+          <div className="min-w-0 flex-1">
+            <h2 className="text-[17px] font-semibold leading-snug text-slate-900">
+              {role}
+            </h2>
+            <p className="mt-0.5 text-sm text-slate-700/90">{topicsToFocus}</p>
           </div>
         </div>
 
         <button
-          className="hidden group-hover:flex items-center gap-2 text-xs text-rose-500 font-medium bg-rose-50 px-3 py-1 rounded text-nowrap border border-rose-100 hover:border-rose-200 cursor-pointer absolute top-0 right-0 "
+          type="button"
+          className="absolute right-3 top-3 z-10 hidden items-center gap-1.5 rounded-lg border border-rose-100 bg-white/95 px-2.5 py-1.5 text-xs font-medium text-rose-600 shadow-sm transition hover:bg-rose-50 group-hover:flex"
           onClick={(e) => {
             e.stopPropagation();
             onDelete();
           }}
         >
-          <LuTrash2 />
+          <LuTrash2 className="text-sm" />
+          <span className="hidden sm:inline">Delete</span>
         </button>
       </div>
 
-      <div className="px-3 pb-3">
-        <div className="flex items-center gap-3 mt-4">
-          <div className="text-[11px] font-semibold text-cyan-700 px-4 py-1 bg-white/70 backdrop-blur-md rounded-full border border-cyan-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 cursor-pointer">
-            Experience : {experience} {experience == 1 ? "Year" : "Years"}
-          </div>
-          <div className="text-[11px] font-semibold text-cyan-700 px-4 py-1 bg-white/70 backdrop-blur-md rounded-full border border-cyan-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 cursor-pointer">
-            {questions} Q&A
-          </div>
-          <div className="text-[11px] font-semibold text-cyan-700 px-4 py-1 bg-white/70 backdrop-blur-md rounded-full border border-cyan-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 cursor-pointer">
-            Last Updated : {lastUpdated}
-          </div>
+      <div className="space-y-3 px-4 pb-4 pt-0 sm:px-5 sm:pb-5">
+        <div className="flex flex-wrap justify-center gap-2 sm:justify-start">
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-semibold text-slate-700">
+            {experience}{" "}
+            {experience == 1 ? "year" : "years"} experience
+          </span>
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-semibold text-slate-700">
+            {questions} Q&amp;A
+          </span>
+          <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1 text-[11px] font-semibold text-slate-600">
+            Updated {lastUpdated}
+          </span>
         </div>
-
-        <p className="text-[12px] text-gray-500 font-medium line-clamp-2 mt-3">
-          {description}
-        </p>
+        {description && (
+          <p className="line-clamp-2 text-xs leading-relaxed text-slate-500">
+            {description}
+          </p>
+        )}
       </div>
-    </div>
+    </article>
   );
 };
 

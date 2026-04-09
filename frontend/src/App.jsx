@@ -22,8 +22,9 @@ const App = () => {
           </Routes>
         </Router>
         <Toaster
+          position="top-center"
           toastOptions={{
-            className: "",
+            className: "!bg-slate-900 !text-white !rounded-xl !shadow-lg !text-sm",
             style: {
               fontSize: "13px",
             },

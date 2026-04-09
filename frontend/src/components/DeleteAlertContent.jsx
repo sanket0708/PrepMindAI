@@ -1,18 +1,29 @@
 import React from "react";
 
-const DeleteAlertContent = ({ content, onDelete }) => {
+const DeleteAlertContent = ({ content, onDelete, onClose }) => {
   return (
-    <div className="bg-white rounded-xl shadow-lg p-6 sm:p-8 flex flex-col items-center w-full max-w-xs sm:max-w-sm mx-auto">
-      <p className="text-center text-[15px] text-rose-600 font-semibold mb-6 break-words">
+    <div className="mx-auto flex w-full max-w-sm flex-col items-center gap-6 px-6 py-8 sm:px-8">
+      <p className="text-center text-[15px] font-medium leading-relaxed text-slate-700">
         {content}
       </p>
-      <button
-        type="button"
-        className="w-full cursor-pointer flex justify-center items-center gap-2 text-sm text-white font-bold bg-gradient-to-r from-rose-500 via-rose-500 to-rose-500 px-5 py-2.5 rounded-lg shadow hover:from-rose-600 hover:to-rose-800 transition-colors"
-        onClick={onDelete}
-      >
-        Delete
-      </button>
+      <div className="flex w-full flex-col gap-3 sm:flex-row-reverse">
+        <button
+          type="button"
+          className="w-full cursor-pointer rounded-xl bg-rose-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-rose-500"
+          onClick={onDelete}
+        >
+          Delete session
+        </button>
+        {onClose && (
+          <button
+            type="button"
+            className="w-full cursor-pointer rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-semibold text-slate-700 transition hover:bg-slate-50"
+            onClick={onClose}
+          >
+            Cancel
+          </button>
+        )}
+      </div>
     </div>
   );
 };

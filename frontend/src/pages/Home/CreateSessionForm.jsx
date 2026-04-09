@@ -73,13 +73,12 @@ const CreateSessionForm = () => {
   };
 
   return (
-    <div className="w-[90vw] md:w-[35vw] p-7 flex flex-col justify-center bg-white/70 backdrop-blur-md rounded-3xl shadow-2xl border-2 border-cyan-100 mx-auto">
-      <h3 className="text-2xl font-extrabold text-transparent bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-500 bg-clip-text drop-shadow mb-1">
-        Start a New Interview Journey
+    <div className="mx-auto flex w-full max-w-md flex-col justify-center px-6 py-8 sm:px-8 sm:py-10">
+      <h3 className="mb-1 text-2xl font-bold tracking-tight text-slate-900">
+        New interview session
       </h3>
-      <p className="text-xs text-cyan-700 mt-[5px] mb-3">
-        Just a few quick details, and your customized interview questions are
-        ready!
+      <p className="mb-6 text-sm text-slate-600">
+        A few details—then we&apos;ll generate tailored questions for your role.
       </p>
       <form onSubmit={handleCreateSession} className="flex flex-col gap-4 mt-2">
         <Input
@@ -111,10 +110,10 @@ const CreateSessionForm = () => {
           type="text"
         />
 
-        {error && <p className="text-red-500 text-xs pb-2.5">{error}</p>}
+        {error && <p className="pb-2 text-xs text-red-600">{error}</p>}
         <button
           type="submit"
-          className="w-full cursor-pointer mt-2 bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white font-bold py-2.5 rounded-full shadow-lg border-2 border-white hover:from-teal-400 hover:to-cyan-500 hover:scale-105 transition-all focus:outline-none focus:ring-2 focus:ring-cyan-200 text-lg tracking-wide disabled:opacity-60 disabled:cursor-not-allowed"
+          className="mt-2 w-full cursor-pointer rounded-full bg-indigo-600 py-3 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60"
           disabled={isLoading}
         >
           {isLoading && <SpinnerLoader />} Create Session

@@ -13,18 +13,18 @@ const Modal = ({ children, isOpen, onClose, title, hideHeader }) => {
   }, [isOpen]);
   if (!isOpen) return null;
   return (
-    <div className="fixed inset-0 z-50 flex justify-center items-center w-full h-full bg-black/40 backdrop-blur-sm">
-      <div className="relative flex flex-col bg-white shadow-lg rounded-lg overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/45 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-[max(0.75rem,env(safe-area-inset-top))] backdrop-blur-[2px] sm:p-4">
+      <div className="relative max-h-[min(90dvh,calc(100dvh-2rem))] w-full max-w-xl overflow-hidden rounded-2xl border border-slate-200/80 bg-white shadow-2xl shadow-slate-900/15">
         {!hideHeader && (
-          <div className="flex items-center justify-between mb-6 min-h-[2.5rem] px-1">
-            <h3 className="text-lg font-semibold text-cyan-700 flex-1">
+          <div className="flex min-h-[2.5rem] items-center justify-between border-b border-slate-100 px-5 py-4">
+            <h3 className="flex-1 text-lg font-semibold text-slate-800">
               {title}
             </h3>
           </div>
         )}
         <button
           type="button"
-          className="text-gray-400 bg-transparent hover:bg-cyan-100 hover:text-cyan-500 rounded-lg text-sm w-8 h-8 flex justify-center items-center absolute top-8.5 z-10 right-5 cursor-pointer sm:top-11"
+          className="absolute right-3 top-3 z-10 flex h-9 w-9 cursor-pointer items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-700"
           onClick={onClose}
         >
           <svg
@@ -43,7 +43,9 @@ const Modal = ({ children, isOpen, onClose, title, hideHeader }) => {
             />
           </svg>
         </button>
-        <div className="flex-1 overflow-y-auto">{children}</div>
+        <div className="max-h-[min(85dvh,860px)] flex-1 overflow-y-auto">
+          {children}
+        </div>
       </div>
     </div>
   );

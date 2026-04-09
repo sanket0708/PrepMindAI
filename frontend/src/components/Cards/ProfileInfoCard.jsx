@@ -3,9 +3,10 @@ import { UserContext } from "../../context/userContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
-const ProfileInfoCard = () => {
+const ProfileInfoCard = ({ variant = "default" }) => {
   const { user, clearUser } = useContext(UserContext);
   const navigate = useNavigate();
+  const stacked = variant === "stacked";
 
   const handleLogout = () => {
     localStorage.clear();
@@ -15,29 +16,44 @@ const ProfileInfoCard = () => {
   };
   return (
     user && (
-      <div className="flex items-center gap-3">
+      <div
+        className={`flex gap-3 ${
+          stacked
+            ? "h-auto flex-col items-center py-1 text-center"
+            : "h-11 items-center"
+        }`}
+      >
         {user.profileImageUrl ? (
           <img
             src={user.profileImageUrl}
             alt="Profile"
-            className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full object-cover border-2 border-blue-400"
+            className="h-10 w-10 shrink-0 rounded-full border-2 border-white object-cover shadow-sm ring-2 ring-indigo-100 sm:h-11 sm:w-11"
           />
         ) : (
-          <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gray-200 rounded-full border-2 border-blue-400 flex items-center justify-center">
-            <span className="text-gray-500 text-xs font-semibold">
-              {user.name?.charAt(0)?.toUpperCase() || "U"}
-            </span>
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border-2 border-white bg-gradient-to-br from-indigo-100 to-slate-100 text-sm font-bold text-indigo-700 shadow-sm ring-2 ring-indigo-100 sm:h-11 sm:w-11">
+            {user.name?.charAt(0)?.toUpperCase() || "U"}
           </div>
         )}
-        <div className="flex-1 min-w-0">
-          <div className="text-sm sm:text-base text-gray-900 font-semibold truncate">
+        <div
+          className={`min-w-0 flex flex-col justify-center ${
+            stacked ? "items-center" : ""
+          }`}
+        >
+          <div
+            className={`text-sm font-semibold text-slate-900 sm:text-base ${
+              stacked ? "max-w-[220px] text-center" : "truncate"
+            }`}
+          >
             {user.name || ""}
           </div>
           <button
-            className="mt-1 cursor-pointer px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs font-semibold rounded-full transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-1 mr-2 sm:mr-3"
+            type="button"
+            className={`mt-0.5 inline-flex cursor-pointer items-center rounded-full bg-rose-50 px-2.5 py-0.5 text-[11px] font-semibold text-rose-600 transition hover:bg-rose-100 hover:text-rose-700 ${
+              stacked ? "" : "w-fit"
+            }`}
             onClick={handleLogout}
           >
-            Logout
+            Log out
           </button>
         </div>
       </div>

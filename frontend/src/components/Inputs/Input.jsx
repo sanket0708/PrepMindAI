@@ -10,23 +10,33 @@ const Input = ({ value, onChange, label, placeholder, type }) => {
 
   return (
     <div>
-      <label className="text-[13px] text-slate-800">{label}</label>
-      <div className="input-box flex items-center gap-2 border-b border-cyan-200 focus-within:border-cyan-500 transition-colors">
+      <label className="mb-1.5 block text-[13px] font-medium text-slate-700">
+        {label}
+      </label>
+      <div className="flex items-center gap-2 rounded-xl border border-slate-200 bg-slate-50/80 px-3 transition-colors focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/15">
         <input
           type={
             type == "password" ? (showPassword ? "text" : "password") : type
           }
           placeholder={placeholder}
-          className="flex-1 bg-transparent outline-none py-2 px-1 text-base text-cyan-900"
+          className="flex-1 bg-transparent py-2.5 text-base text-slate-900 outline-none placeholder:text-slate-400"
           value={value}
           onChange={(e) => onChange(e)}
         />
         {type === "password" && (
           <span className="ml-1 flex items-center">
             {showPassword ? (
-              <FaRegEye size={22} className="text-cyan-600 cursor-pointer" onClick={toggleShowPassword} />
+              <FaRegEye
+                size={20}
+                className="cursor-pointer text-slate-500 hover:text-indigo-600"
+                onClick={toggleShowPassword}
+              />
             ) : (
-              <FaRegEyeSlash size={22} className="text-cyan-400 cursor-pointer" onClick={toggleShowPassword} />
+              <FaRegEyeSlash
+                size={20}
+                className="cursor-pointer text-slate-400 hover:text-indigo-600"
+                onClick={toggleShowPassword}
+              />
             )}
           </span>
         )}

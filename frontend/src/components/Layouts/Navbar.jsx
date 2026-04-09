@@ -4,23 +4,36 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
   return (
-    <div className="h-18 bg-white/70 border border-cyan-100 backdrop-blur-md shadow-md py-2.5 px-4 md:px-0 sticky top-0 z-30 rounded-b-2xl mb-6 md:mb-10">
-      <div className="container mx-auto flex items-center justify-between gap-2 sm:gap-4 px-0 sm:px-4">
-        <div className="flex items-center gap-12">
-          <Link to="/dashboard">
-            <h2 className="text-base xs:text-lg md:text-2xl font-extrabold leading-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-teal-500 bg-clip-text text-transparent drop-shadow select-none">
-              PrepMind AI
-            </h2>
+    <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl shadow-sm shadow-slate-900/5">
+      <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-3 px-4 sm:h-16 sm:px-6 lg:px-8">
+        <div className="flex min-w-0 items-center gap-2 sm:gap-4">
+          <Link
+            to="/dashboard"
+            className="shrink-0 text-base font-bold tracking-tight text-slate-900 transition hover:text-indigo-600 sm:text-lg md:text-xl"
+          >
+            PrepMind
+            <span className="font-semibold text-indigo-500"> AI</span>
           </Link>
-          <Link to="/">
-            <h2 className="text-base xs:text-lg md:text-2xl font-extrabold leading-5 bg-gradient-to-r from-cyan-500 via-blue-500 to-teal-500 bg-clip-text text-transparent drop-shadow select-none">
+          <nav className="hidden items-center gap-0.5 sm:flex md:gap-1">
+            <Link
+              to="/"
+              className="rounded-full px-2.5 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 md:px-3"
+            >
               Home
-            </h2>
-          </Link>
+            </Link>
+            <Link
+              to="/dashboard"
+              className="rounded-full px-2.5 py-1.5 text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-900 md:px-3"
+            >
+              Sessions
+            </Link>
+          </nav>
         </div>
-        <ProfileInfoCard />
+        <div className="flex min-w-0 shrink-0 items-center justify-end">
+          <ProfileInfoCard />
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

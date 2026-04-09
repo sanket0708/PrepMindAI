@@ -76,7 +76,7 @@ const AIResponsePreview = ({ content }) => {
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
           components={{
-            code({ node, className, children, ...props }) {
+            code({ className, children, ...props }) {
               const match = /language-(\w+)/.exec(className || "");
               const language = match ? match[1] : "";
 

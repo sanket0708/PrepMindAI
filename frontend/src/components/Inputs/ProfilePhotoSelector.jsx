@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { LuUser, LuUpload, LuTrash } from "react-icons/lu";
 
 const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
@@ -37,11 +37,11 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
       />
 
       {!image ? (
-        <div className="w-24 h-24 rounded-full bg-gradient-to-r from-cyan-100 to-blue-100 border-2 border-cyan-200 flex items-center justify-center relative group cursor-pointer hover:scale-105 transition-all">
-          <LuUser className="text-4xl text-cyan-600" />
+        <div className="group relative flex h-24 w-24 cursor-pointer items-center justify-center rounded-full border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-slate-100 transition hover:scale-[1.02]">
+          <LuUser className="text-4xl text-indigo-400" />
           <button 
             type="button" 
-            className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center text-white shadow-lg hover:scale-110 transition-all" 
+            className="absolute -bottom-2 -right-2 flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 text-white shadow-lg transition hover:bg-indigo-500" 
             onClick={onChooseFile}
           >
             <LuUpload className="text-sm cursor-pointer" />
@@ -53,11 +53,11 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
             <img 
               src={preview} 
               alt="profile pic" 
-              className="w-full h-full rounded-full object-cover border-2 border-cyan-200" 
+              className="h-full w-full rounded-full border-2 border-indigo-100 object-cover" 
             />
           ) : (
-            <div className="w-full h-full rounded-full bg-gradient-to-r from-cyan-100 to-blue-100 border-2 border-cyan-200 flex items-center justify-center">
-              <LuUser className="text-4xl text-cyan-600" />
+            <div className="flex h-full w-full items-center justify-center rounded-full border-2 border-indigo-100 bg-gradient-to-br from-indigo-50 to-slate-100">
+              <LuUser className="text-4xl text-indigo-400" />
             </div>
           )}
           <button 
@@ -69,7 +69,7 @@ const ProfilePhotoSelector = ({ image, setImage, preview, setPreview }) => {
           </button>
         </div>
       )}
-      <p className="text-xs text-cyan-700 text-center">Click to upload profile photo</p>
+      <p className="text-center text-xs text-slate-500">Optional profile photo</p>
     </div>
   );
 };

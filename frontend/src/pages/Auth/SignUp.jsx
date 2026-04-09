@@ -89,13 +89,13 @@ const Signup = ({ setCurrentPage }) => {
   };
 
   return (
-    <div className="w-full flex items-center justify-center bg-gradient-to-br from-[#f2efe0] via-[#e0f7fa] to-[#e6f7ff]">
-      <div className="w-[90vw] max-w-md mx-auto bg-white/70 rounded-3xl shadow-2xl border-2 border-cyan-100 p-8 md:p-10 flex flex-col items-center">
-        <h3 className="text-2xl md:text-3xl font-extrabold text-center mb-2 text-transparent bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-500 bg-clip-text drop-shadow-lg">
+    <div className="flex w-full items-center justify-center bg-slate-50/50 p-6 sm:p-10">
+      <div className="mx-auto flex w-full max-w-md flex-col items-center rounded-2xl border border-slate-200/80 bg-white p-8 shadow-sm md:p-10">
+        <h3 className="mb-2 text-center text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
           Create an account
         </h3>
-        <p className="text-base text-cyan-700 mb-8 text-center">
-          Join us today by entering your details below.
+        <p className="mb-8 text-center text-sm text-slate-600 md:text-base">
+          Add your details to start practicing with AI-generated questions.
         </p>
         <form onSubmit={handleSignUp} className="w-full flex flex-col gap-6">
           <ProfilePhotoSelector
@@ -132,10 +132,10 @@ const Signup = ({ setCurrentPage }) => {
           <button
             type="submit"
             disabled={loading}
-            className={`cursor-pointer w-full bg-gradient-to-r from-cyan-500 via-blue-400 to-teal-400 text-white rounded-full py-2.5 mt-2 font-bold shadow transition-all border-2 border-white focus:outline-none focus:ring-2 focus:ring-cyan-200 text-lg tracking-wide flex items-center justify-center gap-2 ${
+            className={`mt-2 flex w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-indigo-600 py-3 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 transition focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 ${
               loading
-                ? "opacity-70 cursor-not-allowed"
-                : "hover:from-teal-400 hover:to-cyan-500 hover:scale-105"
+                ? "cursor-not-allowed opacity-70"
+                : "hover:bg-indigo-500"
             }`}
           >
             {loading ? (
@@ -149,15 +149,16 @@ const Signup = ({ setCurrentPage }) => {
           </button>
         </form>
 
-        <p className="text-[13px] text-cyan-800 mt-6 text-center">
+        <p className="mt-6 text-center text-sm text-slate-600">
           Already have an account?{" "}
           <button
-            className="font-medium text-blue-500 underline cursor-pointer hover:text-cyan-600 transition-colors"
+            type="button"
+            className="cursor-pointer font-semibold text-indigo-600 underline-offset-2 hover:underline"
             onClick={() => {
               setCurrentPage("login");
             }}
           >
-            Login
+            Log in
           </button>
         </p>
       </div>

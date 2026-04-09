@@ -231,14 +231,18 @@ const InterviewPrep = () => {
             : ""
         }
       />
-      <div className="container mx-auto pt-4 pb-4 px-4 md:px-0">
-        <h2 className="text-lg font-semibold color-black">Interview Q&A</h2>
-        <div className="grid grid-cols-12 gap-4 mt-5 mb-10">
-          <div
-            className={`col-span-12 ${
-              openLeanMoreDrawer ? "md:col-span-7" : "md:col-span-8"
-            }`}
-          >
+      <div className="mx-auto w-full max-w-4xl px-0 pb-12 pt-4 sm:pt-6 lg:max-w-5xl xl:max-w-6xl">
+        <div className="mb-6 max-w-2xl text-center sm:mb-8 sm:text-left">
+          <h2 className="text-lg font-bold tracking-tight text-slate-900 sm:text-xl md:text-2xl">
+            Questions &amp; answers
+          </h2>
+          <p className="mt-1.5 text-sm text-slate-600 sm:text-base">
+            Expand a card to read the model answer. Use Learn more for a deeper
+            explanation in the side panel.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 gap-4">
+          <div className="min-w-0">
             <AnimatePresence>
               {sessionData?.questions?.map((data, index) => {
                 return (
@@ -272,7 +276,8 @@ const InterviewPrep = () => {
                         sessionData?.questions?.length == index + 1 && (
                           <div className="flex items-center justify-center mt-5">
                             <button
-                              className="flex items-center gap-3 text-sm text-white font-medium bg-black px-5 py-2 mr-2 rounded text-nowrap cursor-pointer "
+                              type="button"
+                              className="mr-2 inline-flex cursor-pointer items-center gap-2 rounded-full border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-800 shadow-sm transition hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-900 disabled:cursor-not-allowed disabled:opacity-60"
                               disabled={isLoading || isUpdateLoader}
                               onClick={uploadMoreQuestions}
                             >
@@ -299,8 +304,8 @@ const InterviewPrep = () => {
             title={!isLoading && explanation?.title}
           >
             {errorMsg && (
-              <p className="flex gap-2 text-sm text-amber-600 font-medium">
-                <LuCircleAlert className="mt-1" /> {errorMsg}
+              <p className="flex gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3 py-2 text-sm font-medium text-amber-900">
+                <LuCircleAlert className="mt-0.5 shrink-0" /> {errorMsg}
               </p>
             )}
             {isLoading && <SkeletonLoader />}
