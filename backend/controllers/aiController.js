@@ -75,6 +75,13 @@ const generateInterviewQuestions = async (req, res) => {
       .replace(/```$/, "")
       .trim();
 
+    // Fix common JSON issues from AI responses
+    cleanedText = cleanedText
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+      .replace(/\\n/g, "\\n") // Fix literal newlines
+      .replace(/\\r/g, "\\r") // Fix literal carriage returns
+      .replace(/\\t/g, "\\t"); // Fix literal tabs
+
     // console.log("Cleaned text for JSON.parse (questions):", cleanedText);
 
     // Try to extract JSON array from the response if it's wrapped in text
@@ -204,6 +211,13 @@ const generateConceptExplanation = async (req, res) => {
       .replace(/^```json\s*/, "")
       .replace(/```$/, "")
       .trim();
+
+    // Fix common JSON issues from AI responses
+    cleanedText = cleanedText
+      .replace(/[\u0000-\u001F\u007F-\u009F]/g, "") // Remove control characters
+      .replace(/\\n/g, "\\n") // Fix literal newlines
+      .replace(/\\r/g, "\\r") // Fix literal carriage returns
+      .replace(/\\t/g, "\\t"); // Fix literal tabs
 
     // console.log("Cleaned text for JSON.parse:", cleanedText);
 
