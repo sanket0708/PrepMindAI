@@ -2,6 +2,10 @@ import React, { createContext, useState, useEffect } from "react";
 import axiosInstance from "../utils/axiosInstance";
 import { API_PATHS } from "../utils/apiPaths";
 
+// global context for authentication , it checks local storage for a token 
+// fetches the current user from backend if token exists and exposes functions
+// to update or clear the user across the app 
+
 export const UserContext = createContext();
 
 const UserProvider = ({ children }) => {

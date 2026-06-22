@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const sessionSchema = new mongoose.Schema(
   {
-    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" }, //reference to the user who created the session 
     role: { type: String, required: true },
     experience: { type: String, required: true },
     topicsToFocus: { type: String, required: true },

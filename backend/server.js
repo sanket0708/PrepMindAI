@@ -1,6 +1,6 @@
-require("dotenv").config();
+require("dotenv").config(); // env variable loader 
 const express = require("express");
-const cors = require("cors");
+const cors = require("cors"); 
 const path = require("path");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes.js");
@@ -16,7 +16,7 @@ const app = express();
 app.use(
   cors({
     origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    methods: ["GET", "POST", "PUT", "DELETE"], // allow these methods from cors requests 
     allowedHeaders: ["Content-Type", "Authorization"],
   })
 );

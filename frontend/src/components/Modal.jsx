@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+//Reusable input component that standardizes the UI across login and signup. It also includes built-in password visibility toggle logic
+//so the same component can be used for text and password fields
+
 const Modal = ({ children, isOpen, onClose, title, hideHeader }) => {
   useEffect(() => {
     if (isOpen) {

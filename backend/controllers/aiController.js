@@ -1,4 +1,4 @@
-const { GoogleGenAI } = require("@google/genai");
+const { GoogleGenAI } = require("@google/genai"); // not using genai now , changed to groq api 
 const Groq = require("groq-sdk");
 const {
   conceptExplainPrompt,
@@ -6,7 +6,7 @@ const {
 } = require("../utils/prompts");
 
 // Initialize AI clients
-const geminiAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+const geminiAI = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }); //not using now 
 const groqAI = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 // Check if API key is set
@@ -51,8 +51,8 @@ const generateInterviewQuestions = async (req, res) => {
       ],
       model: "llama-3.3-70b-versatile", // Current recommended model
       // Lower temp + higher cap: 10 long Q&As in JSON often exceeded 3000 and truncated mid-JSON → parse failures
-      temperature: 0.35,
-      max_tokens: 8192,
+      temperature: 0.35, // how random response is , lower value -> more focused , higher value -> more variation , creative 
+      max_tokens: 8192, // controls max length of AI response , more tokens -> longer answers 
     });
     
     // console.log("Groq API response received");

@@ -1,6 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+// only the authenticated user can access the data
+
 const protect = async (req, res, next) => {
   try {
     let token = req.headers.authorization;
