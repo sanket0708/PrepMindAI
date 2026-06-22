@@ -28,6 +28,8 @@ const Dashboard = () => {
     lastActive: null,
     topRole: ""
   });
+
+  // future implementation on this , version 2 maybe 
   const [openDeleteAlert, setOpenDeleteAlert] = useState({ open: false, data: null });
 
   // Load cached data on mount
@@ -88,6 +90,8 @@ const Dashboard = () => {
         lastActive: sessionsData.length > 0 ? lastActiveDate.format('MMM DD') : null,
         topRole
       };
+
+      // further v2 
       
       setUserStats(stats);
       localStorage.setItem('cachedUserStats', JSON.stringify(stats));
