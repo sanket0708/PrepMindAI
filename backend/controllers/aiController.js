@@ -49,7 +49,7 @@ const generateInterviewQuestions = async (req, res) => {
           content: prompt,
         },
       ],
-      model: "llama-3.3-70b-versatile", // Current recommended model
+      model: "lopenai/gpt-oss-120b", // Current recommended model
       // Lower temp + higher cap: 10 long Q&As in JSON often exceeded 3000 and truncated mid-JSON → parse failures
       temperature: 0.35, // how random response is , lower value -> more focused , higher value -> more variation , creative 
       max_tokens: 8192, // controls max length of AI response , more tokens -> longer answers 
@@ -189,7 +189,7 @@ const generateConceptExplanation = async (req, res) => {
           content: prompt,
         },
       ],
-      model: "llama-3.3-70b-versatile", // Current recommended model
+      model: "openai/gpt-oss-120b", // Current recommended model
       temperature: 0.7,
       max_tokens: 2000,
     });
